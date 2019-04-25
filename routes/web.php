@@ -11,6 +11,21 @@
 |
 */
 
-Route::get('/', function () {
+/*Route::get('/', function () {
     return view('welcome');
-});
+});*/
+// 文章列表
+Route::get('/posts', 'PostController@index');
+// 文章详情
+Route::get('/posts/{post}', 'PostController@show')->where('post', '[0-9]+');
+// 创建文章
+Route::get('/posts/create', 'PostController@create');
+Route::post('/posts', 'PostController@store');
+
+// 编辑文章
+Route::get('/posts/{post}/edit', 'PostController@edit');
+Route::put('/posts/{post}', 'PostController@update');
+// 删除文章
+Route::get('/posts/{post}/delete', 'PostController@delete');
+// 上傳圖片
+//Route::post('/posts/image/upload', 'PostController@uploadImage');
