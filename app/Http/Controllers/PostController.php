@@ -11,13 +11,14 @@ class PostController extends Controller
     // 文章列表
     public function index()
     {
-        $posts = Post::orderBy('created_at', 'desc')->paginate(5);
+        $posts = Post::orderBy('created_at', 'desc')->withCount('comments')->paginate(5);
 //        $faker_data = factory(Post::class, 1)->create();
         return view('post.index', compact('posts'));
     }
     // 文章详情
     public function show(Post $post)
     {
+        $post->load('comments');
         return view('post.show', compact('post'));
     }
     // 创建文章
@@ -68,5 +69,21 @@ class PostController extends Controller
         $this->authorize('delete', $post);
         $post->delete();
         return redirect('/posts');
+    }
+    // 提交评论
+    public function comment(Post $post)
+    {
+        // 验证
+        $this->validate(request(), [
+            'content' => 'required|min:3',
+        ]);
+        // 业务
+        $comment = new \App\Comment();
+        $comment->user_id = \Auth::id();
+        $comment->content = request('content');
+//        dd($post->comments);
+        $post->comments()->save($comment);
+        // 渲染
+        return back();
     }
 }

@@ -43,3 +43,6 @@ Route::put('/posts/{post}', 'PostController@update');
 Route::get('/posts/{post}/delete', 'PostController@delete');
 // 上傳圖片
 //Route::post('/posts/image/upload', 'PostController@uploadImage');
+
+// 提交评论
+Route::post('/posts/{post}/comment', 'PostController@comment');
