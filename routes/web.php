@@ -46,3 +46,7 @@ Route::get('/posts/{post}/delete', 'PostController@delete');
 
 // 提交评论
 Route::post('/posts/{post}/comment', 'PostController@comment');
+// 赞
+Route::get('/posts/{post}/zan', 'PostController@zan');
+// 取消赞
+Route::get('/posts/{post}/unzan', 'PostController@unzan');

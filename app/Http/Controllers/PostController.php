@@ -3,6 +3,7 @@
 namespace App\Http\Controllers;
 
 use App\Post;
+use App\Zan;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
 
@@ -11,7 +12,7 @@ class PostController extends Controller
     // 文章列表
     public function index()
     {
-        $posts = Post::orderBy('created_at', 'desc')->withCount('comments')->paginate(5);
+        $posts = Post::orderBy('created_at', 'desc')->withCount(['comments', 'zans'])->paginate(5);
 //        $faker_data = factory(Post::class, 1)->create();
         return view('post.index', compact('posts'));
     }
@@ -84,6 +85,22 @@ class PostController extends Controller
 //        dd($post->comments);
         $post->comments()->save($comment);
         // 渲染
+        return back();
+    }
+    // 赞
+    function zan(Post $post)
+    {
+        $param = [
+            'user_id' => \Auth::id(),
+            'post_id' => $post->id,
+        ];
+        Zan::firstOrCreate($param);
+        return back();
+    }
+    // 取消赞
+    function unzan(Post $post)
+    {
+        $post->zan(\Auth::id())->delete();
         return back();
     }
 }
