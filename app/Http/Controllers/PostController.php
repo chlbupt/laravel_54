@@ -2,8 +2,9 @@
 
 namespace App\Http\Controllers;
 
-use \App\Post;
+use App\Post;
 use Illuminate\Http\Request;
+use Illuminate\Support\Facades\Auth;
 
 class PostController extends Controller
 {
@@ -25,13 +26,19 @@ class PostController extends Controller
         return view('post.create');
     }
 
+    /**
+     * @param Request $request
+     * @return \Illuminate\Http\RedirectResponse|\Illuminate\Routing\Redirector
+     */
     public function store(Request $request)
     {
         $this->validate($request,[
             'title' => 'required|string|max:100|min:5',
             'content' => 'required|string|min:10',
         ]);
-        Post::create(request(['title', 'content']));
+        $user_id = Auth::id();
+        $params = array_merge(request(['title', 'content']), compact('user_id'));
+        Post::create($params);
         return redirect('/posts');
     }
     // 编辑文章
@@ -46,6 +53,7 @@ class PostController extends Controller
             'title' => 'required|string|max:100|min:5',
             'content' => 'required|string|min:10',
         ]);
+        $this->authorize('update', $post);
         // 逻辑
         $post->title = request('title');
         $post->content = request('content');
@@ -57,7 +65,7 @@ class PostController extends Controller
     public function delete(Post $post)
     {
         // TODO: 用户权限验证
-
+        $this->authorize('delete', $post);
         $post->delete();
         return redirect('/posts');
     }

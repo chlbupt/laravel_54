@@ -4,17 +4,19 @@
         <div class="blog-post">
             <div style="display:inline-flex">
                 <h2 class="blog-post-title">{{ $post->title  }}</h2>
-                {{--@if( $isShow == true)--}}
+                @Can('update', $post)
                     <a style="margin: auto"  href="/posts/{{$post->id}}/edit">
                         <span class="glyphicon glyphicon-pencil" aria-hidden="true"></span>
                     </a>
-                {{--@endif--}}
+                @endCan
+                @Can('delete', $post)
                 <a style="margin: auto"  href="/posts/{{$post->id}}/delete">
                     <span class="glyphicon glyphicon-remove" aria-hidden="true"></span>
                 </a>
+                @endCan
             </div>
 
-            <p class="blog-post-meta">{{$post->created_at->toFormattedDateString()}}<a href="#">Kassandra Ankunding2</a></p>
+            <p class="blog-post-meta">{{$post->created_at->toFormattedDateString()}} by <a href="#">{{ $post->user->name  }}</a></p>
 
             <p>{!! $post->content !!}</p>
             <div>
