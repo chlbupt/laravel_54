@@ -50,3 +50,5 @@ Route::post('/posts/{post}/comment', 'PostController@comment');
 Route::get('/posts/{post}/zan', 'PostController@zan');
 // 取消赞
 Route::get('/posts/{post}/unzan', 'PostController@unzan');
+// 搜索
+Route::get('/posts/search', 'PostController@search');
