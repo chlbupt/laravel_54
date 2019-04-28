@@ -52,3 +52,9 @@ Route::get('/posts/{post}/zan', 'PostController@zan');
 Route::get('/posts/{post}/unzan', 'PostController@unzan');
 // 搜索
 Route::get('/posts/search', 'PostController@search');
+// 用戶中心
+Route::get('/user/{user}', 'UserController@show');
+// 關注默認
+Route::post('/user/{user}/fan', 'UserController@fan');
+// 取消關注
+Route::post('/user/{user}/unfan', 'UserController@unfan');
