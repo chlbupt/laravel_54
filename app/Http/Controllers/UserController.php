@@ -15,14 +15,29 @@ class UserController extends Controller
     }
     function settingStore(Request $request)
     {
+        $user = User::find(\Auth::id());
         // 驗證
         $this->validate($request, [
             'name' => 'required|min:3',
         ]);
         // 邏輯
-
+        $name = request('name');
+        if($name != \Auth::user()->name)
+        {
+            if(User::where('name', $name)->count() > 0){
+                return back()->withErrors(['message' => '用户名称已经被注册']);
+            }
+        }
+        $user->name = $name;
+        if($request->file('avatar') ){
+            $avatar_path = env('AVATAR_PATH', '/uploads/avatar');
+            $path = $request->file('avatar')->store($avatar_path);
+//            dd($path);
+            $user->avatar = '/storage/'. $path;
+        }
         // 渲染
-        return redirect('/user/me/setting');
+        $user->save();
+        return back();
     }
     // 個人頁面
     function show(User $user)
@@ -37,6 +52,7 @@ class UserController extends Controller
         // 粉絲列表，包含關注/粉絲/文章數
         $fans = $user->fans;
         $fusers =  User::whereIn('id', $fans->pluck('fan_id'))->withCount(['fans', 'stars', 'posts'])->get();
+//        dd($fusers);
         return view('user.show', compact('user', 'posts', 'susers', 'fusers'));
     }
 

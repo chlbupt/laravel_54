@@ -14,7 +14,7 @@
                 <label class="col-sm-2 control-label">头像</label>
                 <div class="col-sm-2">
                     <input class=" file-loading preview_input" type="file" value="用户名" style="width:72px" name="avatar">
-                    <img  class="preview_img" src="/image/user.jpeg" alt="" class="img-rounded" style="border-radius:500px;">
+                    <img  class="preview_img" src="{{ \Auth::user()->avatar ? \Auth::user()->avatar :  get_default_avatar()}}" alt="" class="img-rounded" style="border-radius:500px;width:300px;height:300px;">
                 </div>
             </div>
             @include('layout.error')

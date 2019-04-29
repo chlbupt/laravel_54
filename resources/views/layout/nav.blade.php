@@ -22,7 +22,7 @@
         <ul class="nav navbar-nav navbar-right">
             <li class="dropdown">
                 <div>
-                    <img src="/image/user.jpeg" alt="" class="img-rounded" style="border-radius:500px; height: 30px">
+                    <img src="{{\Auth::user()->avatar ? \Auth::user()->avatar :  get_default_avatar()}}" alt="" class="img-rounded" style="width:30px;height:30px;border-radius:500px; height: 30px">
                     <a href="#" class="blog-nav-item dropdown-toggle" data-toggle="dropdown" role="button" aria-haspopup="true" aria-expanded="false">{{ \Auth::user()->name }}<span class="caret"></span></a>
                     <ul class="dropdown-menu">
                         <li><a href="/user/{{ \Auth::id() }}">我的主页</a></li>

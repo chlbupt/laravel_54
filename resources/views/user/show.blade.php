@@ -28,9 +28,9 @@
             </div>
             <div class="tab-pane" id="tab_2">
                 @foreach($susers as $user)
-                <div class="blog-post" style="margin-top: 30px">
+                <div class="blog-post" style="margin-top: 30px" >
                     <p class="">{{ $user->name }}.</p>
-                    <p class="">关注：{{$user->stars_count}} | 粉丝：{{$user->fans_count}}｜ 文章：{{$user->post_count}}</p>
+                    <p class="">关注：{{$user->stars_count}} | 粉丝：{{$user->fans_count}}｜ 文章：{{$user->posts_count}}</p>
                     @include('user.gadgets.like', ['target_user' => $user])
                 </div>
                 @endforeach
@@ -39,7 +39,7 @@
                 @foreach($fusers as $fuser)
                     <div class="blog-post" style="margin-top: 30px">
                         <p class="">{{ $fuser->name }}.</p>
-                        <p class="">关注：{{$fuser->stars_count}} | 粉丝：{{$fuser->fans_count}}｜ 文章：{{$fuser->post_count}}</p>
+                        <p class="">关注：{{$fuser->stars_count}} | 粉丝：{{$fuser->fans_count}}｜ 文章：{{$fuser->posts_count}}</p>
                         @include('user.gadgets.like', ['target_user' => $fuser])
                     </div>
                 @endforeach
