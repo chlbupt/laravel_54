@@ -15,7 +15,7 @@ return [
     |
     */
 
-    'driver' => env('SCOUT_DRIVER', 'elasticsearch'),
+    'driver' => env('SCOUT_DRIVER', 'algolia'),
 
     /*
     |--------------------------------------------------------------------------
@@ -79,7 +79,7 @@ return [
     |
     | Here you may configure your Algolia settings. Algolia is a cloud hosted
     | search engine which works great with Scout out of the box. Just plug
-    | in your application ID and admin API key to get started searching.
+    | in your application ID and Admin API key to get started searching.
     |
     */
 

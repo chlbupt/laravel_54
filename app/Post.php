@@ -8,7 +8,7 @@ use Laravel\Scout\searchable;
 
 class Post extends Model
 {
-    use searchable;
+    /*use searchable;
     public function searchableAs()
     {
         return 'post';
@@ -19,7 +19,7 @@ class Post extends Model
             'title' => $this->title,
             'content' => $this->content,
         ];
-    }
+    }*/
 
     public function user()
     {
@@ -52,6 +52,14 @@ class Post extends Model
     {
         return $query->doesntHave('postTopics', 'and', function($q) use($topic_id) {
             $q->where('topic_id', $topic_id);
+        });
+    }
+
+    protected static function boot()
+    {
+        parent::boot();
+        static::addGlobalScope('available', function(Builder $builder){
+            $builder->whereIn('status', [0, 1 ]);
         });
     }
 }
