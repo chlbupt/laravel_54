@@ -8,19 +8,13 @@ use Laravel\Scout\searchable;
 
 class Post extends Model
 {
-    use searchable;
+//    use searchable;
     public function searchableAs()
     {
-        if(config('scout.driver') != 'elasticsearch'){
-            return '';
-        }
         return 'post';
     }
     public function toSearchableArray()
     {
-        if(config('scout.driver') != 'elasticsearch'){
-            return '';
-        }
         return [
             'title' => $this->title,
             'content' => $this->content,

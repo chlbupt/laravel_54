@@ -62,6 +62,8 @@ Route::post('/user/{user}/unfan', 'UserController@unfan');
 Route::get('/topic/{topic}', 'TopicController@show');
 // 投稿页
 Route::post('/topic/{topic}/submit', 'TopicController@submit');
+// 通知
+Route::get('/notices', 'NoticeController@index');
 
 // 后台路由
 include_once('admin.php');

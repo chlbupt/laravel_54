@@ -39,5 +39,9 @@ Route::group(['prefix' => 'admin'], function(){
             // 专题模块
             Route::resource('topics', 'Admin\TopicController', ['only' => ['index', 'create', 'store', 'destroy']]);
         });
+        Route::group(['middleware' => 'can:notice'], function(){
+            // 专题模块
+            Route::resource('notices', 'Admin\NoticeController', ['only' => ['index', 'create', 'store']]);
+        });
     });
 });
