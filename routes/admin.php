@@ -35,6 +35,9 @@ Route::group(['prefix' => 'admin'], function(){
             Route::get('/posts', 'Admin\PostController@index');
             Route::Post('/posts/{post}/status', 'Admin\PostController@status');
         });
-
+        Route::group(['middleware' => 'can:topic'], function(){
+            // 专题模块
+            Route::resource('topics', 'Admin\TopicController', ['only' => ['index', 'create', 'store', 'destroy']]);
+        });
     });
 });
