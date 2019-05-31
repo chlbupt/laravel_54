@@ -2,6 +2,8 @@
 
 namespace App\Exceptions;
 
+use App\Common\Err\ApiErrDesc;
+use App\Http\Response\ResponseJson;
 use Exception;
 use Illuminate\Auth\AuthenticationException;
 use Illuminate\Foundation\Exceptions\Handler as ExceptionHandler;
@@ -13,6 +15,7 @@ class Handler extends ExceptionHandler
      *
      * @var array
      */
+    use ResponseJson;
     protected $dontReport = [
         \Illuminate\Auth\AuthenticationException::class,
         \Illuminate\Auth\Access\AuthorizationException::class,
@@ -44,6 +47,11 @@ class Handler extends ExceptionHandler
      */
     public function render($request, Exception $exception)
     {
+        if($exception instanceof  ApiException){
+            $code = $exception->getCode();
+            $message = $exception->getMessage();
+            return $this->jsonData($code, $message);
+        }
         return parent::render($request, $exception);
     }
 

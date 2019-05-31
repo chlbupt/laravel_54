@@ -179,7 +179,7 @@ return [
         Stevenyangecho\UEditor\UEditorServiceProvider::class,
         Laravel\Scout\ScoutServiceProvider::class,
 //        ScoutEngines\Elasticsearch\ElasticsearchProvider::class,
-
+        Tymon\JWTAuth\Providers\LaravelServiceProvider::class,
     ],
 
     /*
@@ -229,7 +229,7 @@ return [
         'Validator' => Illuminate\Support\Facades\Validator::class,
         'View' => Illuminate\Support\Facades\View::class,
         'UEditor'=>Stevenyangecho\UEditor\UEditorServiceProvider::class,
-
+        'JWTAuth' => Tymon\JWTAuth\Facades\JWTAuth::class,
     ],
 
 ];

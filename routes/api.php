@@ -16,3 +16,8 @@ use Illuminate\Http\Request;
 Route::middleware('auth:api')->get('/user', function (Request $request) {
     return $request->user();
 });
+Route::get('/user/login', 'JwtLoginController@login');
+Route::middleware(['jwt_auth'])->group(function(){
+    Route::get('/user/info', 'UserController@info');
+    Route::get('/user/info-cache', 'UserController@infoCache');
+});
